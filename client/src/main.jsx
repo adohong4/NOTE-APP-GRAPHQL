@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router-dom'
 import router from './router/index.jsx'
 
-import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+// import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';

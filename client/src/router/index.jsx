@@ -6,6 +6,8 @@ import ProtectedRoute from "./ProtectedRoute";
 import ErrorPage from "../pages/ErrorPage";
 import NoteList from "../components/NoteList";
 import Note from "../components/Note";
+import { notesLoader, noteLoader } from "../utils/noteUtils";
+import { folderLoader } from "../utils/folderUtils";
 
 const AuthLayout = () => {
     return (
@@ -30,36 +32,17 @@ export default createBrowserRouter([
                     {
                         element: <Home />,
                         path: '/',
-                        loader: async () => {
-                            const query = `query Folders {
-                            folders{
-                                id
-                                name
-                                createAt
-                            }}`;
-
-                            const res = await fetch('http://localhost:4000/graphql', {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Accept': 'application/json'
-                                },
-                                body: JSON.stringify({
-                                    query
-                                })
-                            });
-
-                            const { data } = await res.json();
-                            return data;
-                        },
+                        loader: folderLoader,
                         children: [
                             {
                                 element: <NoteList />,
                                 path: `folders/:folderId`,
+                                loader: notesLoader,
                                 children: [
                                     {
                                         element: <Note />,
-                                        path: `note/:noteId`
+                                        path: `note/:noteId`,
+                                        loader: noteLoader,
                                     }
                                 ]
                             }
